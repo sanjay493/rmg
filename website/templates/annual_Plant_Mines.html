@@ -1,0 +1,60 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+
+<div class="container">
+  <h3 align="center">
+    I/Ore Production & Despatch, Hotmetal & Sinter Production
+  </h3>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr class="bg-primary">
+          <th rowspan="2" class="align-middle text-center">Financial Year</th>
+          <th rowspan="2" class="align-middle text-center">I/o Production</th>
+          <th rowspan="2" class="align-middle text-center">I/o Despatch</th>
+          <th rowspan="2" class="align-middle text-center">Hot Metal</th>
+          <th rowspan="2" class="align-middle text-center">Sinter</th>
+          <th colspan="3" class="align-middle text-center">
+            I/o Production shares
+          </th>
+          <th colspan="2" class="align-middle text-center">
+            HM Production shares
+          </th>
+        </tr>
+        <tr class="bg-info">
+          <th class="text-center">% OGOM</th>
+          <th class="text-center">% JGOM</th>
+          <th class="text-center">% BGM</th>
+          <th class="text-center">% Eastern</th>
+          <th class="text-center">% BSP</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for data in prod_ten %}
+        <tr>
+          <td class="text-center">{{ data.financial_year }}</td>
+          <td class="text-center">{{ "{:,.0f}".format(data.total_p) }}</td>
+          <td class="text-center">{{ "{:,.0f}".format(data.total_d) }}</td>
+          <td class="text-center">{{ "{:,.0f}".format(data.total_hm) }}</td>
+          <td class="text-center">{{ "{:,.0f}".format(data.total_sn) }}</td>
+          <td class="text-center bg-success text-white">
+            {{ data.per_ogom |round|int}}
+          </td>
+          <td class="text-center bg-success text-white">
+            {{ data.per_jgom |round|int}}
+          </td>
+          <td class="text-center bg-success text-white">
+            {{ (100-(data.per_ogom+data.per_jgom)) |round|int}}
+          </td>
+          <td class="text-center bg-warning">
+            {{ 100-data.per_bsp |round|int}}
+          </td>
+          <td class="text-center bg-warning">{{ data.per_bsp |round|int}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

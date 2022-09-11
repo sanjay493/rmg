@@ -1,0 +1,147 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+
+<!-- <table class="table table-striped">
+  <thead>
+    <tr>
+      <h1 align="center">Shift wise Production Report</h1>
+    </tr>
+    <tr>
+      <th scope="col">Report date</th>
+      <th scope="col">Unit</th>
+      <th scope="col">Shift</th>
+      <th scope="col">ROM</th>
+      <th scope="col">OB</th>
+      <th scope="col">Lump</th>
+      <th scope="col">Fines</th>
+      <th scope="col">ROM Trips</th>
+      <th scope="col">OB Trips</th>
+      <th scope="col">Drilling</th>
+      <th scope="col">Entry time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for data in user.dly_production %}
+    <tr>
+      <td>{{data.rpt_date}}</td>
+      <td>{{data.unit}}</td>
+      <td>{{data.shift}}</td>
+      <td>{{data.rm}}</td>
+      <td>{{data.ob}}</td>
+      <td>{{data.lump}}</td>
+      <td>{{data.fines}}</td>
+      <td>{{data.rm_trips}}</td>
+      <td>{{data.ob_trips}}</td>
+      <td>{{data.drill}}</td>
+      <td>{{data.entry_time}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table> -->
+
+<main class="form-rake w-80 m-auto">
+  <form method="POST" action="{{ url_for('views.dly_prodn')}}">
+    {{ form.csrf_token }}
+    <p>{{ form.rpt_date.label }} {{ form.rpt_date() }}</p>
+
+    {% if form.rpt_date.errors %}
+    <ul class="errors">
+      {% for error in form.rpt_date.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <p>{{ form.unit.label }} {{ form.unit() }}</p>
+    {% if form.unit.errors %}
+    <ul class="errors">
+      {% for error in form.unit.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <p>{{ form.shift.label }} {{ form.shift() }}</p>
+
+    {% if form.shift.errors %}
+    <ul class="errors">
+      {% for error in form.shift.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <p>{{ form.rm.label }} {{ form.rm() }}</p>
+
+    {% if form.rm.errors %}
+    <ul class="errors">
+      {% for error in form.rm.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <p>{{ form.ob.label }} {{ form.ob() }}</p>
+
+    {% if form.ob.errors %}
+    <ul class="errors">
+      {% for error in form.ob.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <p>{{ form.lump.label }} {{ form.lump() }}</p>
+
+    {% if form.lump.errors %}
+    <ul class="errors">
+      {% for error in form.lump.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <p>{{ form.fines.label }} {{ form.fines() }}</p>
+
+    {% if form.fines.errors %}
+    <ul class="errors">
+      {% for error in form.fines.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <p>{{ form.rm_trips.label }} {{ form.rm_trips() }}</p>
+
+    {% if form.rm_trips.errors %}
+    <ul class="errors">
+      {% for error in form.rm_trips.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <p>{{ form.ob_trips.label }} {{ form.ob_trips() }}</p>
+
+    {% if form.ob_trips.errors %}
+    <ul class="errors">
+      {% for error in form.ob_trips.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <p>{{ form.drill.label }} {{ form.drill() }}</p>
+
+    {% if form.drill.errors %}
+    <ul class="errors">
+      {% for error in form.drill.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <p>
+      <input type="submit" value="Add" />
+    </p>
+  </form>
+</main>
+{% endblock %}

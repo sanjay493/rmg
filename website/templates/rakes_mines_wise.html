@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block title %}Mines wise rake loading{% endblock %}
+{% block content %}
+<table class="table table-striped mt-3">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan="5" class="bg-primary">Odisha Group of Mines</th>
+      <th colspan="5" class="bg-dark text-white">Jharkhand Group of Mines</th>
+    </tr>
+    <tr>
+      <th class="text-center">Month</th>
+      <th class="bg-warning">Both Group Total</th>
+      <th>Bolani</th>
+      <th>Barsua</th>
+      <th>Taldih</th>
+      <th>Kalta</th>
+      <th class="bg-warning">Total</th>
+      <th>KRB</th>
+      <th>MBR</th>
+      <th>Gua</th>
+      <th>Chiria</th>
+      <th class="bg-warning">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for data in data %}
+    <tr class="text-center">
+      <td>{{data[0]}}</td>
+      <td class="text-center bg-warning">{{data[2]}}</td>
+      <td>{{data[3]}}</td>
+      <td>{{data[4]}}</td>
+      <td>{{data[5]}}</td>
+      <td>{{data[6]}}</td>
+      <td class="bg-warning">{{data[3]+data[4]+data[5]+data[6]}}</td>
+      <td>{{data[7]}}</td>
+      <td>{{data[8]}}</td>
+      <td>{{data[9]}}</td>
+      <td>{{data[10]}}</td>
+      <td class="bg-warning">{{data[7]+data[8]+data[9]+data[10]}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

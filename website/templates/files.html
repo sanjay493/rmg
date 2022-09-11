@@ -1,0 +1,57 @@
+{% extends "base.html" %} {% block title %}Downlods{% endblock %} {% block
+content %} {%- set
+montName=['January','February','March','April','May','June','July','August','September','October','November','December']
+%} {% if request.path =='/upload_files/' %} {% for file in files %}
+<div>
+  <a href="{{ (request.path + '/' if request.path != '/' else '') + file }}">
+    {{ file }}
+  </a>
+</div>
+{% endfor %} {% elif req_path in request.path and 'Monthly' in request.path %}
+
+<div class="container m-5 p-2">
+  <div class="row">
+    <h2 class="text-center m-3">{{ req_path }}</h2>
+    {% for montName in montName %}
+
+    <div class="col-4 text-center">
+      <h3>{{ montName }}</h3>
+      {% for file in files %} {% if montName in file %}
+
+      <div>
+        <a
+          href="{{ (request.path + '/' if request.path != '/' else '') + file }}"
+          target="_blank"
+        >
+          {{ file }}
+        </a>
+      </div>
+      {% endif %} {% endfor %}
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+
+{% else %}
+<div class="container m-5 p-2">
+  <div class="row">
+    <h2 class="text-center m-3">{{ req_path }}</h2>
+
+    <div class="col-12 text-left m-2 p-2">
+      {% for file in files %}
+
+      <div>
+        <a
+          href="{{ (request.path + '/' if request.path != '/' else '') + file }}"
+          target="_blank"
+        >
+          {{ file }}
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endif %} {% endblock %}

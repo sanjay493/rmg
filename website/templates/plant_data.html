@@ -1,0 +1,107 @@
+{% extends "base.html" %} {% block title %}Plant Annual{% endblock %} {% block
+content %}
+
+<h3 align="center">Plant Annaul Data</h3>
+
+<!-- Example single danger button -->
+<div>
+  Select a Plant to get Annual Production & Iron Ore supply data in a last
+  decade
+</div>
+
+<div class="container">
+  <form
+    class="row gy-2 gx-3 align-items-center"
+    action="{{ url_for('views.plant_data') }}"
+    method="POST"
+  >
+    <div class="col-auto">
+      <label class="visually-hidden" for="autoSizingSelect">Select Plant</label>
+      <select class="form-select" id="autoSizingSelect" name="cust">
+        <option selected>Choose...</option>
+        <option value="SAIL">SAIL</option>
+        <option value="ESTP">Eastern Plants</option>
+        <option value="BSP">Bhilai Steel Plant</option>
+        <option value="BSL">Bokaro Steel Plant</option>
+        <option value="DSP">Durgapur Steel Plant</option>
+        <option value="RSP">Rourkela Steel Plant</option>
+        <option value="ISP">IISCO Steel Plant</option>
+      </select>
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+
+<div class="container">
+  {%- set U_Name = [{ 'name' : 'Kiriburu Iron Ore Mines', 'id' : 'KRB', }, {
+  'name' : 'Meghahatuburu Iron Ore Mines', 'id' : 'MBR', },{ 'name' : 'Gua Iron
+  Ore Mines', 'id' : 'GUA', },{ 'name' : 'Manoharpur Iron Ore Mines', 'id' :
+  'MPR', },{ 'name' : 'Bolani Ore Mines', 'id' : 'BOL', },{ 'name' : 'Barsua
+  Iron Mines', 'id' : 'BAR', },{ 'name' : 'Taldih Iron Mines', 'id' : 'TAL', },
+  { 'name' : 'Kalta Iron Mines', 'id' : 'KAL', }, { 'name' : 'Bhilai Group of
+  Mines', 'id' : 'BGM', },{ 'name' : 'Bhilai Steel Plant', 'id' : 'BSP', },{
+  'name' : 'Bokaro Steel Plant', 'id' : 'BSL', },{ 'name' : 'Rourkela Steel
+  Plant', 'id' : 'RSP', },{ 'name' : 'Durgapur Steel Plant', 'id' : 'DSP'},{
+  'name' : 'IISCO Steel Plant', 'id' : 'ISP'},{ 'name' : 'Jharkhand Group of
+  Mines', 'id' : 'JGOM'},{ 'name' : 'SAIL', 'id' : 'SAIL'},{ 'name' : 'Odisha
+  Group of Mines', 'id' : 'OGOM'},{ 'name' : 'Eastern Steel Plants', 'id' :
+  'ESTP'} ] %}
+  <div class="table-responsive table-striped table-hover">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th colspan="8" class="align-middle text-end">
+            {% for item in U_Name %}{% if item.id==cust %}{{ item.name }} {%
+            endif %}{% endfor %}
+          </th>
+        </tr>
+        <tr class="bg-dark text-white">
+          <th></th>
+          <th colspan="3" class="align-middle text-center">Hotmetal</th>
+          <th colspan="3" class="align-middle text-center">Sinter</th>
+          <th colspan="3" class="align-middle text-center">I/o Supply</th>
+        </tr>
+        <tr class="bg-primary">
+          <th rowspan="2" class="align-middle text-center">Financial Year</th>
+          <th class="align-middle text-center">APP</th>
+          <th class="align-middle text-center">Actual</th>
+          <th class="align-middle text-center">%FF</th>
+          <!-- <th class="align-middle text-center">%Growth</th> -->
+          <th class="align-middle text-center">APP</th>
+          <th class="align-middle text-center">Actual</th>
+          <th class="align-middle text-center">%FF</th>
+          <!-- <th class="align-middle text-center">%Growth</th> -->
+          <th class="align-middle text-center">Lump</th>
+          <th class="align-middle text-center">Fines</th>
+          <th class="align-middle text-center">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for data in data %}
+        <tr>
+          <td class="text-center">{{ data[0] }}</td>
+          <td class="text-center">{{ data[1] }}</td>
+          <td class="text-center">{{ data[2] }}</td>
+          <td class="text-center">
+            {{ "{:,.0f}".format(data[2]*100/data[1]) }}
+          </td>
+
+          <td class="text-center">{{ data[3] }}</td>
+          <td class="text-center">{{ data[4] }}</td>
+          <td class="text-center">
+            {{ "{:,.0f}".format(data[4]*100/data[3]) }}
+          </td>
+
+          <td class="text-center">{{ data[5] }}</td>
+          <td class="text-center">{{ data[6] }}</td>
+          <td class="text-center">{{ (data[5]+data[6]) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

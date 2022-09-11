@@ -1,0 +1,136 @@
+{% extends "base.html" %} {% block title %}Mines Monthly{% endblock %} {% block
+content %}
+
+<h3 align="center">
+  Get Mines Monthly Production & Despatch Data for April-13 Onward.
+</h3>
+
+<!-- Example single danger button -->
+<div>Select a unit to get Monthly Production Despatch data</div>
+
+<div class="container">
+  <form
+    class="row gy-2 gx-3 align-items-center justify-content-center"
+    action="{{ url_for('views.custom_mines_monthly') }}"
+    method="POST"
+    name="yyyymm"
+    onsubmit="return validateForm()"
+  >
+    <div class="col-auto">
+      <label class="visually-hidden" for="autoSizingSelect">Select Unit</label>
+      <select class="form-select" id="autoSizingSelect" name="unit">
+        <option selected>Choose...</option>
+        <option value="SAIL">SAIL</option>
+        <option value="OGOM">Odisha Group of Mines</option>
+        <option value="JGOM">Jharkhand Group of Mines</option>
+        <option value="BGM">Bhilai Group of Mines</option>
+        <option value="BOL">Bolani</option>
+        <option value="BAR">Barsua</option>
+        <option value="TAL">Taldih</option>
+        <option value="KAL">Kalta</option>
+        <option value="KRB">Kiriburu</option>
+        <option value="MBR">Meghahatuburu</option>
+        <option value="GUA">Gua</option>
+        <option value="MPR">Chiria</option>
+      </select>
+    </div>
+    <div class="col-auto">
+      <!-- <label for="yymm1" id="yymm1" name="yymm1"
+        >From Month in (YYYYMM format)</label
+      > -->
+      <input
+        type="text"
+        class="form-control"
+        id="yymm1"
+        placeholder="From month in YYYYMM format"
+        name="yymm1"
+      />
+    </div>
+    <div class="col-auto">
+      <!-- <label for="yymm2" id="yymm2" name="yymm2"
+        >From Month in (YYYYMM format)</label
+      > -->
+      <input
+        type="text"
+        class="form-control"
+        id="yymm2"
+        placeholder="To month in YYYYMM format"
+        name="yymm2"
+      />
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+
+<div class="container">
+  {%- set U_Name = [{ 'name' : 'Kiriburu Iron Ore Mines', 'id' : 'KRB', }, {
+  'name' : 'Meghahatuburu Iron Ore Mines', 'id' : 'MBR', },{ 'name' : 'Gua Iron
+  Ore Mines', 'id' : 'GUA', },{ 'name' : 'Manoharpur Iron Ore Mines', 'id' :
+  'MPR', },{ 'name' : 'Bolani Ore Mines', 'id' : 'BOL', },{ 'name' : 'Barsua
+  Iron Mines', 'id' : 'BAR', },{ 'name' : 'Taldih Iron Mines', 'id' : 'TAL', },
+  { 'name' : 'Kalta Iron Mines', 'id' : 'KAL', }, { 'name' : 'Bhilai Group of
+  Mines', 'id' : 'BGM', },{ 'name' : 'Bhilai Steel Plant', 'id' : 'BSP', },{
+  'name' : 'Bokaro Steel Plant', 'id' : 'BSL', },{ 'name' : 'Rourkela Steel
+  Plant', 'id' : 'RSP', },{ 'name' : 'Durgapur Steel Plant', 'id' : 'DSP'},{
+  'name' : 'IISCO Steel Plant', 'id' : 'ISP'},{ 'name' : 'Jharkhand Group of
+  Mines', 'id' : 'JGOM'},{ 'name' : 'SAIL', 'id' : 'SAIL'},{ 'name' : 'Odisha
+  Group of Mines', 'id' : 'OGOM'} ] %}
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th colspan="8" class="align-middle text-end">
+            {% for item in U_Name %}{% if item.id==unit %}{{ item.name }} {%
+            endif %}{% endfor %}
+          </th>
+        </tr>
+        <tr class="bg-primary">
+          <th rowspan="2" class="align-middle text-center">Month</th>
+          <th colspan="4" class="align-middle text-center">I/o Production</th>
+          <th colspan="4" class="align-middle text-center">I/o Despatch</th>
+        </tr>
+        <tr class="bg-info">
+          <th class="text-center">Lump</th>
+          <th class="text-center">Fines</th>
+          <th class="text-center">Total</th>
+          <th class="text-center"></th>
+          <th class="text-center">Lump</th>
+          <th class="text-center">Fines</th>
+          <th class="text-center">Total</th>
+          <th class="text-center"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for data in data %}
+        <tr>
+          <td class="text-center">{{ data.periods }}</td>
+          <td class="text-center">{{ "{:,.0f}".format(data.total_pl) }}</td>
+          <td class="text-center">{{ "{:,.0f}".format(data.total_pf)}}</td>
+          <td class="text-center">
+            {{ "{:,.0f}".format((data.total_pl+data.total_pf)) }}
+          </td>
+          <td class="text-center"></td>
+          <td class="text-center">{{ "{:,.0f}".format(data.total_dl) }}</td>
+          <td class="text-center">{{ "{:,.0f}".format(data.total_df)}}</td>
+          <td class="text-center">
+            {{ "{:,.0f}".format((data.total_dl+data.total_df)) }}
+          </td>
+          <td class="text-center"></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+  function validateForm() {
+    let x = document.forms["yyyymm"]["yymm1"].value;
+    if (x < "201304") {
+      alert("I have data 201304 onward ");
+      return false;
+    }
+  }
+</script>
+{% endblock %}

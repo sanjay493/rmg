@@ -1,0 +1,61 @@
+*{
+    font-family: 'Work Sans',sans-serif;
+}
+
+
+
+.container{
+-webkit-box-shadow:-45px 17px 42px 10px rgba(62,66,66,0.13);
+-moz-box-shadow: -45px 17px 42px 10px rgba(62,66,66,0.13);
+box-shadow: -45px 17px 42px 10px rgba(62,66,66,0.13);
+}
+
+.your-growing-text{
+    
+text-shadow: rgba(255,162,0,0.77) 0px 0px 73px;
+
+}
+
+#myChart {  /* or some other selector */
+    width: 100% !important;
+    height: auto !important;
+ }
+
+ .card-footer{
+    font-weight: 300;
+    font-size:1.5rem;;
+ }
+
+ .virtical-title{
+    writing-mode: vertical-rl;
+text-orientation: mixed;
+ }
+
+ .box-shadow{
+    height: 300px;
+    -webkit-box-shadow:-45px 17px 42px 10px rgba(62,66,66,0.13);
+    -moz-box-shadow: -45px 17px 42px 10px rgba(62,66,66,0.13);
+    box-shadow: -45px 17px 42px 10px rgba(62,66,66,0.13);
+    }
+.ondate{
+    font-size: 1.5rem;
+    font-weight: 300;
+    font-family: 'Work Sans',sans-serif !important;
+}
+.mthrate{
+    font-size: 1.1rem;
+    font-weight: 300;
+    font-family: 'Work Sans',sans-serif !important;
+}
+.ff_class{
+    color: purple;
+    font-size: 1.1rem;
+}
+.foot-ma {
+    font-size: 0.8rem;
+   
+}
+
+li{
+    list-style: none;
+}

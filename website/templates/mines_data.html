@@ -1,0 +1,97 @@
+{% extends "base.html" %} {% block title %}Mines Annual{% endblock %} {% block
+content %}
+
+<h3 align="center">Mines Annual Data</h3>
+
+<!-- Example single danger button -->
+<div>Select a unit to get Annual Production Despatch data for a decade</div>
+
+<div class="container">
+  <form
+    class="row gy-2 gx-3 align-items-center"
+    action="{{ url_for('views.mines_data') }}"
+    method="POST"
+  >
+    <div class="col-auto">
+      <label class="visually-hidden" for="autoSizingSelect">Select Unit</label>
+      <select class="form-select" id="autoSizingSelect" name="unit">
+        <option selected>Choose...</option>
+        <option value="SAIL">SAIL</option>
+        <option value="OGOM">Odisha Group of Mines</option>
+        <option value="JGOM">Jharkhand Group of Mines</option>
+        <option value="BGM">Bhilai Group of Mines</option>
+        <option value="BOL">Bolani</option>
+        <option value="BAR">Barsua</option>
+        <option value="TAL">Taldih</option>
+        <option value="KAL">Kalta</option>
+        <option value="KRB">Kiriburu</option>
+        <option value="MBR">Meghahatuburu</option>
+        <option value="GUA">Gua</option>
+        <option value="MPR">Chiria</option>
+      </select>
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+
+<div class="container">
+  {%- set U_Name = [{ 'name' : 'Kiriburu Iron Ore Mines', 'id' : 'KRB', }, {
+  'name' : 'Meghahatuburu Iron Ore Mines', 'id' : 'MBR', },{ 'name' : 'Gua Iron
+  Ore Mines', 'id' : 'GUA', },{ 'name' : 'Manoharpur Iron Ore Mines', 'id' :
+  'MPR', },{ 'name' : 'Bolani Ore Mines', 'id' : 'BOL', },{ 'name' : 'Barsua
+  Iron Mines', 'id' : 'BAR', },{ 'name' : 'Taldih Iron Mines', 'id' : 'TAL', },
+  { 'name' : 'Kalta Iron Mines', 'id' : 'KAL', }, { 'name' : 'Bhilai Group of
+  Mines', 'id' : 'BGM', },{ 'name' : 'Bhilai Steel Plant', 'id' : 'BSP', },{
+  'name' : 'Bokaro Steel Plant', 'id' : 'BSL', },{ 'name' : 'Rourkela Steel
+  Plant', 'id' : 'RSP', },{ 'name' : 'Durgapur Steel Plant', 'id' : 'DSP'},{
+  'name' : 'IISCO Steel Plant', 'id' : 'ISP'},{ 'name' : 'Jharkhand Group of
+  Mines', 'id' : 'JGOM'},{ 'name' : 'SAIL', 'id' : 'SAIL'},{ 'name' : 'Odisha
+  Group of Mines', 'id' : 'OGOM'} ] %}
+
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th colspan="8" class="align-middle text-end">
+            {% for item in U_Name %}{% if item.id==unit %}{{ item.name }} {%
+            endif %}{% endfor %}
+          </th>
+        </tr>
+        <tr class="bg-primary">
+          <th rowspan="2" class="align-middle text-center">Financial Year</th>
+          <th colspan="3" class="align-middle text-center">I/o Production</th>
+          <th colspan="3" class="align-middle text-center">I/o Despatch</th>
+        </tr>
+        <tr class="bg-info">
+          <th class="text-center">Lump</th>
+          <th class="text-center">Fines</th>
+          <th class="text-center">Total</th>
+          <th class="text-center">Lump</th>
+          <th class="text-center">Fines</th>
+          <th class="text-center">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for data in data %}
+        <tr>
+          <td class="text-center">{{ data.financial_year }}</td>
+          <td class="text-center">{{ "{:,.0f}".format(data.total_lp) }}</td>
+          <td class="text-center">{{ "{:,.0f}".format(data.total_fp) }}</td>
+          <td class="text-center bg-primary text-white">
+            {{ "{:,.0f}".format((data.total_lp)+(data.total_fp)) }}
+          </td>
+          <td class="text-center">{{ "{:,.0f}".format(data.total_ld) }}</td>
+          <td class="text-center">{{ "{:,.0f}".format(data.total_fd) }}</td>
+          <td class="text-center bg-danger text-white">
+            {{ "{:,.0f}".format((data.total_ld)+(data.total_fd)) }}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

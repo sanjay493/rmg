@@ -1,0 +1,59 @@
+{% extends "base.html" %} {% block title %}Graph Page{% endblock %} {% block
+content %}
+
+<div class="container">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <script>
+    const labels = {{ labels }};
+    const values1 = {{ values1 }};
+    const values2 = {{ values2 }};
+    const values3 = {{ values3 }};
+    const values4 = {{ values4 }};
+    // const legend = {{ legend }};
+
+    const data = {
+      labels: labels,
+      datasets: [
+        {
+          label: "SAIL-HM",
+          backgroundColor: "rgb(255, 99, 132)",
+          borderColor: "rgb(5, 199, 232)",
+          data: values1,
+        },
+        {
+          label: "Eastern Sector HM",
+          backgroundColor: "rgb(155, 299, 102)",
+          borderColor: "rgb(55, 22, 22)",
+          data: values2,
+        },
+        {
+          label: "OGOM I/o Prodn",
+          backgroundColor: "rgb(55, 99, 32)",
+          borderColor: "rgb(25, 19, 232)",
+          data: values3,
+        },
+        {
+          label: "OGOM I/o Prodn",
+          backgroundColor: "rgb(25, 9, 132)",
+          borderColor: "rgb(255, 0, 232)",
+          data: values4,
+        },
+
+      ],
+    };
+
+    const config = {
+      type: "line",
+      data: data,
+      options: {},
+    };
+
+    const myChart = new Chart(document.getElementById("myChart"), config);
+  </script>
+</div>
+
+{% endblock %}

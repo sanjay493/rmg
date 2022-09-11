@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block title %}Upload Files{% endblock %} {% block
+content %}
+
+<h3>List of Reports</h3>
+<!-- <h1>File Upload</h1>
+<form method="POST" action="" enctype="multipart/form-data">
+  <p><input type="file" name="file" /></p>
+  <p><input type="submit" value="Submit" /></p>
+</form>
+<hr /> -->
+<div class="container shadow-container">
+  <div class="row">
+    {% for file in files  %} {% if file != "Thumbs.db" %}
+
+    <div class="col-md-5">
+      <a href="{{ url_for('auth.download_files',filename=file) }}" >{{ file }}
+    </div>
+
+    {% endif %} {% endfor %}
+  </div>
+</div>
+{% endblock %}

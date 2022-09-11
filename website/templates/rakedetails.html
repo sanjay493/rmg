@@ -1,0 +1,225 @@
+{% extends "base.html" %} {% block title %}Rake Loading{% endblock %} {% block
+content %}
+<!-- {% if user.rakedetails %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <h1 align="center">Your Entries</h1>
+    </tr>
+    <tr>
+      <th scope="col">Ldg date</th>
+      <th scope="col">Rake_no</th>
+      <th scope="col">Unit</th>
+      <th scope="col">Cust</th>
+      <th scope="col">Wgs type</th>
+      <th scope="col">L_Wgs</th>
+      <th scope="col">F_Wgs</th>
+      <th scope="col">Arrival</th>
+      <th scope="col">Placement</th>
+      <th scope="col">Completion</th>
+      <th scope="col">Entry time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for rakedetail in user.rakedetails %}
+    <tr>
+      <td>{{rakedetail.ldg_date}}</td>
+      <td>{{rakedetail.rake_no}}</td>
+      <td>{{rakedetail.unit}}</td>
+      <td>{{rakedetail.cust}}</td>
+      <td>{{rakedetail.wgs_type}}</td>
+      <td>{{rakedetail.lump_wg}}</td>
+      <td>{{rakedetail.fines_wg}}</td>
+      <td>{{rakedetail.arrival_time}}</td>
+      <td>{{rakedetail.pl_time}}</td>
+      <td>{{rakedetail.comp_time}}</td>
+      <td>{{rakedetail.entry_time}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %} -->
+<main class="form-rake w-100 m-auto">
+  <form method="POST">
+    <div class="container">
+      <h3 align="center">Entry of Loaded Rakes</h3>
+      <div class="col-md-12 col-sm-12 mr-auto">
+        <div class="row">
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="rpt_date">Loading Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="rpt_date"
+                name="rpt_date"
+                placeholder="Enter Loading Date"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="arrival_time">Arrival time</label>
+              <input
+                type="datetime-local"
+                class="form-control"
+                id="arrival_time"
+                name="arrival_time"
+                placeholder="Arrival time"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="pl_time">Placement time</label>
+              <input
+                type="datetime-local"
+                class="form-control"
+                id="pl_time"
+                name="pl_time"
+                placeholder="Placement time"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="comp_time">Completion time</label>
+              <input
+                type="datetime-local"
+                class="form-control"
+                id="comp_time"
+                name="comp_time"
+                placeholder="Completion time"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="unit">Unit</label>
+              </div>
+
+              <select class="custom-select input-width" id="unit" name="unit">
+                <option selected></option>
+                <option value="KBR">KBR</option>
+                <option value="MBR">MBR</option>
+                <option value="GUA">GUA</option>
+                <option value="MPR">MPR</option>
+                <option value="BOL">BOL</option>
+                <option value="BAR">BAR</option>
+                <option value="TAL">TAL</option>
+                <option value="KAL">KAL</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="cust">Customer</label>
+              </div>
+
+              <select class="custom-select input-width" id="cust" name="cust">
+                <option selected></option>
+                <option value="BSL">BSL</option>
+                <option value="DSP">DSP</option>
+                <option value="RSP">RSP</option>
+                <option value="ISP">ISP</option>
+                <option value="BSP">BSP</option>
+                <option value="PEL">PEL</option>
+                <option value="OTH">OTH</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="rake_no">Rake No</label>
+
+              <input
+                type="text"
+                class="form-control input-width"
+                id="rake_no"
+                name="rake_no"
+                placeholder="Enter Rake No"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="wgs_type">Types</label>
+
+              <select
+                class="custom-select input-width"
+                id="wgs_type"
+                name="wgs_type"
+              >
+                <option selected></option>
+                <option value="BS">BOBSN</option>
+                <option value="BY">BOYEL</option>
+                <option value="GP">GPWIS</option>
+                <option value="BX">BOXN</option>
+                <option value="EL">BOXNEL</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="lump_wg">Lump Wagons</label>
+              <input
+                type="number"
+                class="form-control input-width"
+                id="lump_wg"
+                name="lump_wg"
+                placeholder="No of Lump wagons loaded"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="fines_wg">Fines Wagons</label>
+              <input
+                type="number"
+                class="form-control input-width"
+                id="fines_wg"
+                name="fines_wg"
+                placeholder="No of Fines wagons loaded"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="lump_qty">Lump Qty</label>
+              <input
+                type="number"
+                class="form-control input-width"
+                id="lump_qty"
+                name="lump_qty"
+                placeholder="Lump Qty loaded"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="fines_qty">Fines Quantity</label>
+              <input
+                type="number"
+                class="form-control input-width"
+                id="fines_qty"
+                name="fines_qty"
+                placeholder="Fines Quantity loaded"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br />
+
+      <button type="submit" class="btn btn-lg btn-primary btn-outline-success">
+        Submit
+      </button>
+    </div>
+  </form>
+</main>
+{% endblock %}

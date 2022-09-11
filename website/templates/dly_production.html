@@ -1,0 +1,163 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<!-- {% if user.pr_dly %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <h1 align="center">Production Report</h1>
+    </tr>
+    <tr>
+      <th scope="col">Report date</th>
+      <th scope="col">Unit</th>
+      <th scope="col">ROM</th>
+      <th scope="col">OB</th>
+      <th scope="col">Lump</th>
+      <th scope="col">Fines</th>
+      <th scope="col">Drilling</th>
+      <th scope="col">Entry time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% for data in user.pr_dly %}
+      {% if data.entry_time%}
+      <td>{{ data.rpt_date }}</td>
+      <td>{{ data.unit }}</td>
+      {% if data.comm=='RM' %}
+      <td>{{ data.act_qty }}</td>
+      {% elif data.comm=='OB' %}
+      <td>{{ data.act_qty }}</td>
+      {% elif data.comm=='L' %}
+      <td>{{ data.act_qty }}</td>
+      {% elif data.comm=='F' %}
+      <td>{{ data.act_qty }}</td>
+      {% elif data.comm=='DR' %}
+      <td>{{ data.act_qty }}</td>
+      {% endif %} {% endfor %}
+    </tr>
+  </tbody>
+</table>
+{% endif %} -->
+<main class="form-rake w-100 m-auto">
+  <form method="POST">
+    <div class="container">
+      <h3 align="center">Production Report</h3>
+      <div class="col-md-12 col-sm-12 mr-auto">
+        <div class="row">
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="rpt_date">Report Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="rpt_date"
+                name="rpt_date"
+                placeholder="Report Date"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="unit">Unit</label>
+              </div>
+
+              <select class="custom-select input-width" id="unit" name="unit">
+                <option selected></option>
+                <option value="KRB">KRB</option>
+                <option value="MBR">MBR</option>
+                <option value="GUA">GUA</option>
+                <option value="MPR">MPR</option>
+                <option value="BOL">BOL</option>
+                <option value="BAR">BAR</option>
+                <option value="TAL">TAL</option>
+                <option value="KAL">KAL</option>
+              </select>
+            </div>
+          </div>
+          <!-- <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="shift">Shift</label>
+              <input
+                type="text"
+                class="form-control"
+                id="shift"
+                name="shift"
+                placeholder="Shift"
+              />
+            </div>
+          </div> -->
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="rm">ROM</label>
+              <input
+                type="number"
+                class="form-control"
+                id="rm"
+                name="rm"
+                placeholder="ROM"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="ob">OB</label>
+              <input
+                type="number"
+                class="form-control"
+                id="ob"
+                name="ob"
+                placeholder="OB"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="lump">Lump</label>
+              <input
+                type="number"
+                class="form-control"
+                id="lump"
+                name="lump"
+                placeholder="Lump"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="fines">Fines</label>
+              <input
+                type="number"
+                class="form-control"
+                id="fines"
+                name="fines"
+                placeholder="Fines"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6 col-sm-9 mb-3">
+            <div class="form-group">
+              <label for="drill">Drilling</label>
+              <input
+                type="number"
+                class="form-control"
+                id="drill"
+                name="drill"
+                placeholder="Drilling"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row"></div>
+      </div>
+
+      <br />
+
+      <button type="submit" class="btn btn-lg btn-primary btn-outline-success">
+        Submit
+      </button>
+    </div>
+  </form>
+</main>
+{% endblock %}

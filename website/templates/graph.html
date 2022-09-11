@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% block title %}Graph Page{% endblock %} {% block
+content %}
+
+<center>
+  <h1>{{ title }}</h1>
+</center>
+<div class="container">
+  <form action="{{ url_for('views.graph') }}" method="post">
+    <div class="col-auto">
+      <label class="visually-hidden" for="autoSizingSelect">Select Plant</label>
+      <select class="form-select" id="autoSizingSelect" name="unit">
+        <option selected>Choose...</option>
+        <option value="SAIL-HM">SAIL Hot Metal</option>
+        <option value="ESTP">Eastern Plants Hot Metal</option>
+        <option value="BSP">Bhilai Steel Plant</option>
+        <option value="BSL">Bokaro Steel Plant</option>
+        <option value="DSP">Durgapur Steel Plant</option>
+        <option value="RSP">Rourkela Steel Plant</option>
+        <option value="SAIL-IO">SAIL Iron Ore</option>
+        <option value="OGOM-IO">Odisha Group of Mines</option>
+        <option value="JGOM-IO">Jharkhand Group of Mines</option>
+        <option value="KRB">Kiriburu</option>
+        <option value="MBR">Meghahatuburu</option>
+        <option value="GUA">Gua</option>
+        <option value="MPR">MPR</option>
+        <option value="BOL">Bolani</option>
+        <option value="BAR">Barsua</option>
+        <option value="TAL">Taldih</option>
+        <option value="KAL">Kalta</option>
+      </select>
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+
+<div class="container">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <script>
+    const data = {
+      labels: labels,
+      datasets: [
+        {
+          label: "Iron Ore Production",
+          backgroundColor: "rgb(255, 99, 132)",
+          borderColor: "rgb(255, 199, 232)",
+          data: [0, 10, 5, 2, 20, 30, 45],
+        },
+        {
+          label: "Moving Average",
+          backgroundColor: "rgb(200, 199, 232)",
+          borderColor: "rgb(205, 109, 12)",
+          data: [10, 5, 15, 12, 180, 20, 25],
+        },
+      ],
+    };
+
+    const config = {
+      type: "line",
+      data: data,
+      options: {},
+    };
+
+    const myChart = new Chart(document.getElementById("myChart"), config);
+  </script>
+</div>
+
+{% endblock %}

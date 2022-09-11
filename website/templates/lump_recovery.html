@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block title %}Lump Recovery{% endblock %} {% block
+content %}
+
+<div class="container">
+  <h3 align="center" class="your-growing-text">A glimpse of Lump Recovery</h3>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          {% for FY in myFYs %}
+          <th class="bg-primary">{{FY}}</th>
+          {% endfor%}
+        </tr>
+      </thead>
+      <tbody>
+        {% for unit in myunits %}
+
+        <tr>
+          <th class="bg-info">{{unit}}</th>
+          {% for FY in myFYs %}{% for list in lists %} {% if (list[1]== unit)
+          and (list[0]== FY) %}
+
+          <td class="text-center">{{ list[2] }}</td>
+
+          {% endif %} {% endfor %} {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="bg-warning"></p>
+</div>
+
+{% endblock %}

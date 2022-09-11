@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CSS only -->
+    <!-- <link
+      href="{{ url_for('static',filename='css/bootstrap.css')}}"
+      rel="stylesheet"
+      type="text/css"
+    /> -->
+    <script src="https://kit.fontawesome.com/54fe078197.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;500;600&display=swap" rel="stylesheet"> 
+    <link
+    rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}"
+    />
+    <script type="text/javascript" src="{{ url_for('static',filename='js/chart.js') }}"></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='js/fontawesome.js') }}"
+    ></script>
+    <script src="{{ url_for('static',filename='js/Chart.min.js') }}" type="text/javascript"></script>
+    <!--signup and login custom css-->
+    <link
+      href="{{ url_for('static',filename='css/login.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="{{ url_for('static',filename='css/custom.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <title>{% block title %}Home{% endblock %}</title>
+  </head>
+  <body>
+    <div>
+      <nav class="navbar navbar-expand-lg navbar-dark bd-navbar rounded shadow-sm">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="http://10.135.0.5/myweb/homeco.asp" target="_blank" rel="noopener noreferrer">SAIL</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 me-auto mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Mines
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/lump_recovery">Lump Recovery</li>
+                  <li><a class="dropdown-item" href="/mines_data">Mines Annual</a></li>
+                  <li><a class="dropdown-item" href="/mines_monthly">Mines Monthly</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="/custom_mines_monthly">Custom Mines Monthly </a></li>
+                  <li><a class="dropdown-item" href="/mthly_cust_wise_suppply">Custom Mines Despatch customer wise </a></li>
+                  <li><a class="dropdown-item" href="/mines_quality">Mines Quality</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Steel Plants
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  
+                  <li><a class="dropdown-item" href="/annual_Plant_Mines">Annual Plants Mines</a></li>
+                  <li><a class="dropdown-item" href="/plant_data">Plants Annual</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="/plant_monthly">Plants Monthly</a></li>
+                  
+                  
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Rakes
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/raketype_destwise">Rake Type Destination wise</a></li>
+                  <li><a class="dropdown-item" href="/rakes_mines_wise">Rake Mines wise</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#"></a></li>
+                  
+                  
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Others
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/sail_links">SAIL Internal Links</a></li>
+                  <li><a class="dropdown-item" href="/upload_files">Downlods</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    
+                  
+                  
+                </ul>
+              </li>
+
+            </ul>
+            <div class="d-flex">
+              <ul class="navbar-nav me-autho mb-2 mb-lg-0">
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Admin Panel
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/rakedetails">Rakes Loading</a></li>
+                    <li><a class="dropdown-item" href="/dly_production">Daily Production</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      
+                    
+                    
+                  </ul>
+                </li>
+          
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="/logout">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="/login">Login</a>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="/signup">Sign up</a>
+                </li>
+                {% endif %}
+              </ul>
+
+              </div>
+          </div>
+        </div>
+      </nav>
+
+     
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+    <div class="container">{% block content %} {% endblock %}</div>
+
+    <!-- Footer -->
+    <div class="container-fluid">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+          <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+            Python Flask & MYSQL
+          </a>
+          <span class="mb-3 mb-md-0 text-muted">&copy; 2022 </span>
+          <a href=""> source code </a>
+        </div>
+    
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+          <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
+          <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
+          <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
+        </ul>
+      </footer>
+    </div>
+    <!-- JavaScript Bundle with Popper -->
+    <script type="text/javascript" src="{{ url_for('static',filename='js/bootstrap.js') }}"
+    ></script>
+    <!-- JavaScript Bundle with Popper -->
+
+    <script type="text/javascript" src="{{ url_for('static',filename='js/bootstrap.bundle.min.js') }}" ></script>
+
+    <script type="text/javascript" src="{{ url_for('static',filename='js/index.js')}}"></script>
+    <script src="{{ url_for('static',filename='js/chart.js')}}" type="text/javascript"></script>
+
+    
+  </body>
+</html>

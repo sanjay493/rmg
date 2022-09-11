@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block title %}Home Page{% endblock %} {% block
+content %} {% from "_render_templates.html" import render_login_form_field %}
+<form method="POST" action="{{ url_for('views.login_form') }}" novalidate>
+  {{ form.csrf_token }} {{ render_login_form_field(form.username )}} {{
+  render_login_form_field(form.password )}} {{ form.recaptcha }} {% for error in
+  form.recaptcha.errors %}
+  <ul>
+    <li style="color: red">{{ error }}</li>
+    {% endfor %}
+  </ul>
+  <input type="submit" value="submit" />
+</form>
+
+{% endblock %}
