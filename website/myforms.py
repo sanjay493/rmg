@@ -2,8 +2,8 @@ from email.policy import default
 from random import choices
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import (StringField, TextAreaField,
-                     IntegerField, BooleanField, RadioField, DateField, SelectField, PasswordField)
-from wtforms.validators import InputRequired, Length, AnyOf
+                     IntegerField, BooleanField, EmailField, DateField, SelectField, PasswordField)
+from wtforms.validators import InputRequired, Length, AnyOf, Email, EqualTo
 from wtforms import validators, SubmitField
 
 
@@ -24,8 +24,18 @@ class DlyProduction(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    username = StringField('username', validators=[InputRequired('A username is required!'), Length(
-        min=5, max=10, message='Must be between 5 and 10 characters.')])
+    email = EmailField('Email', validators=[InputRequired(
+        'Email is required'), Email(), Length(min=5, max=35)])
     password = PasswordField('password', validators=[InputRequired(
-        'Password is required!'), AnyOf(values=['password', 'secret'])])
-    recaptcha = RecaptchaField()
+        'Password is required!')])
+
+
+class SignupForm(FlaskForm):
+    email = EmailField('Email', validators=[InputRequired(
+        'Email is required'), Email(), Length(min=5, max=35)])
+    firstname = StringField('First Name', validators=[
+                            InputRequired('First name is Required'), Length(min=5, max=35)])
+    password = PasswordField('Password', validators=[InputRequired(
+        'Password is required!'), Length(min=6, max=10), EqualTo('password1', message='Passwords must match')])
+    password1 = StringField('Password(Confirm)', validators=[
+                            InputRequired('Password is required!')])

@@ -5,7 +5,6 @@ from flask import Blueprint, render_template, request, flash, jsonify, session, 
 from flask_login import login_required, current_user
 from . import db
 from .models import User, Rakedetails, Pr_dly
-from .myforms import DlyProduction, LoginForm
 
 
 import json
@@ -230,16 +229,6 @@ def rakes_mines_wise():
 #     return render_template('dly_prodn.html', form=form, user=current_user)
 
 
-@views.route('/login_form', methods=['GET', 'POST'])
-def login_form():
-    form = LoginForm()
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            return 'form has been submitted'
-
-    return render_template('login_form.html', form=form, user=current_user)
-
-
 @views.route('/mthly_cust_wise_suppply', methods=['POST', 'GET'])
 def mthly_cust_wise_suppply():
     if request.method == 'POST':
@@ -254,3 +243,61 @@ def mthly_cust_wise_suppply():
         # print(query)
         return render_template("mthly_cust_wise_suppply.html", data=data, user=current_user, unit=unit)
     return render_template("mthly_cust_wise_suppply.html", user=current_user)
+
+
+@views.route('/mthly_cust_mines_suppply', methods=['POST', 'GET'])
+def mthly_cust_mines_suppply():
+    if request.method == 'POST':
+        cust = request.form['cust']
+        yymm1 = request.form['yymm1']
+        yymm2 = request.form['yymm2']
+        comm1 = request.form['comm1']
+        query = "call mthly_cust_mines_suppply('" + \
+            cust+"','"+yymm1+"','"+yymm2+"','"+comm1+"')"
+        data = db.engine.execute(query)
+        # print(data)
+        # print(query)
+        return render_template("mthly_cust_mines_suppply.html", data=data, user=current_user, cust=cust)
+    return render_template("mthly_cust_mines_suppply.html", user=current_user)
+
+
+@views.route('/yrly_cust_wise_suppply', methods=['POST', 'GET'])
+def yrly_cust_wise_suppply():
+    if request.method == 'POST':
+        unit = request.form['unit']
+        comm1 = request.form['comm1']
+        query = "call yrly_cust_wise_suppply('"+unit+"','"+comm1+"')"
+        data = db.engine.execute(query)
+        # print(data)
+        # print(query)
+        return render_template("yrly_cust_wise_suppply.html", data=data, user=current_user, unit=unit, comm=comm1)
+    return render_template("yrly_cust_wise_suppply.html", user=current_user)
+
+
+@views.route('/yrly_cust_mines_suppply', methods=['POST', 'GET'])
+def yrly_cust_mines_suppply():
+    if request.method == 'POST':
+        cust = request.form['cust']
+        comm1 = request.form['comm1']
+        query = "call yrly_cust_mines_suppply('"+cust+"','"+comm1+"')"
+        data = db.engine.execute(query)
+        # print(data)
+        # print(query)
+        return render_template("yrly_cust_mines_suppply.html", data=data, user=current_user, cust=cust, comm=comm1)
+    return render_template("yrly_cust_mines_suppply.html", user=current_user)
+
+
+@views.route('/mines_performance', methods=['POST', 'GET'])
+def mines_performance():
+    if request.method == 'POST':
+
+        yymm1 = request.form['yymm1']
+        yymm2 = request.form['yymm2']
+        comm1 = request.form['comm1']
+
+        query = "call mines_performance('"+yymm1+"','"+yymm2+"','"+comm1+"')"
+        data = db.engine.execute(query)
+        # print(data)
+        # print(query)
+        return render_template("mines_performance.html", data=data, user=current_user, yymm1=yymm1, yymm2=yymm2, comm1=comm1)
+    return render_template("mines_performance.html", user=current_user)

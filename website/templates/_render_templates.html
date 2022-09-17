@@ -1,8 +1,279 @@
+<!-- Login Block -->
 {% macro render_login_form_field(field) %} {{ field.label }} {{
-field(**kwargs)|safe }}
-<ul>
-  {% for error in field.errors %}
-  <li style="color: red">{{ error }}</li>
-  {% endfor %}
-</ul>
+field(**kwargs)|safe }} {% for error in field.errors %}
+<small class="form-text text-danger">{{ error }}</small>
+{% endfor %} {% endmacro %}
+<!-- Signup Block  -->
+{% macro render_signup_form_field(field) %} {{ field.label }} {{
+field(**kwargs)|safe }} {% for error in field.errors %}
+<small class="form-text text-danger">{{ error }}</small>
+
+{% endfor %} {% endmacro %}
+
+<!-- HOme Page daily Analysis Card Block -->
+{% macro
+render_dly_analysis_card(group_name,ondate,mthly,cod_plan,app,ma7days,ma30days)
+%}
+
+<div class="col-lg-6">
+  <div class="d-flex flex-row bd-highlight mb-3">
+    <div class="ogom p-2 bd-highlight">
+      <div class="d-flex flex-row box-shadow m-1 p-2 justify-content-center">
+        <div class="col-2 virtical-title text-center bg-primary text-white">
+          {{ group_name }}
+        </div>
+        <div class="col-10">
+          <div class="row text-center pt-3">
+            <div class="col-12">
+              On date
+              <p class="ondate text-white p-1">{{ ondate }}</p>
+            </div>
+            <div class="col-12">
+              Monthly Rate
+              <p class="mthrate text-success">{{ mthly }}</p>
+            </div>
+            <div class="col-6 ff_class">
+              {{ "{:,.0f}%".format((mthly *100/cod_plan ))}}
+            </div>
+            <div class="col-6 ff_class">
+              {{ "{:,.0f}%".format((mthly*100/app))}}
+            </div>
+            <div class="col-6">COD</div>
+            <div class="col-6">APP</div>
+            {% if ma7days> ma30days %}
+            <div class="col-12 mt-2 foot-ma text-primary">
+              7 Days MA<i class="fa-solid fa-circle-up"></i> {{ma7days}}
+            </div>
+            {% else %}
+            <div class="col-12 mt-2 foot-ma text-danger">
+              7 Days MA {{ma7days}} <i class="fa-solid fa-circle-down"></i>
+            </div>
+            {% endif %}
+
+            <div class="col-12 foot-ma">30 Days MA {{ma30days}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endmacro %}
+<!-- NavBar -->
+{% macro render_Navbar(user) %}
+<nav class="navbar navbar-expand-lg rounded shadow-sm fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      Raw Matrials Group
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mb-2 me-auto mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Mines
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/lump_recovery">Lump Recovery</li>
+            <li><a class="dropdown-item" href="/mines_data">Mines Annual</a></li>
+            <li><a class="dropdown-item" href="/mines_monthly">Mines Monthly</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/custom_mines_monthly">Custom Mines Monthly </a></li>
+            <li><a class="dropdown-item" href="/mines_performance">Mines Performance over a period </a></li>
+            <li><a class="dropdown-item" href="/mthly_cust_wise_suppply">Monthly Mines Despatch customer wise </a></li>
+            <li><a class="dropdown-item" href="/mthly_cust_mines_suppply">Monthly Plant Supply Mines wise </a></li>
+            <li><a class="dropdown-item" href="/yrly_cust_wise_suppply">Yearly Mines Despatch customer wise </a></li>
+            <li><a class="dropdown-item" href="/yrly_cust_mines_suppply">Yearly Plant Supply Mines wise </a></li>
+            <li><a class="dropdown-item" href="/mines_quality">Mines Quality</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Steel Plants
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            
+            <li><a class="dropdown-item" href="/annual_Plant_Mines">Annual Plants Mines</a></li>
+            <li><a class="dropdown-item" href="/plant_data">Plants Annual</a></li>
+              <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/plant_monthly">Plants Monthly</a></li>
+            
+            
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Rakes
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/raketype_destwise">Rake Type Destination wise</a></li>
+            <li><a class="dropdown-item" href="/rakes_mines_wise">Rake Mines wise</a></li>
+              <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#"></a></li>
+            
+            
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Others
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/sail_links">SAIL Internal Links</a></li>
+            <li><a class="dropdown-item" href="/upload_files">Downlods</a></li>
+              <li><hr class="dropdown-divider"></li>
+              
+            
+            
+          </ul>
+        </li>
+
+      </ul>
+      <div class="d-flex">
+        <ul class="navbar-nav me-autho mb-2 mb-lg-0">
+          {% if user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Admin Panel
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/rakedetails">Rakes Loading</a></li>
+              <li><a class="dropdown-item" href="/dly_production">Daily Production</a></li>
+                <li><hr class="dropdown-divider"></li>
+                
+              
+              
+            </ul>
+          </li>
+    
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/signup">Sign up</a>
+          </li>
+          {% endif %}
+        </ul>
+
+        </div>
+    </div>
+  </div>
+</nav>
+
+{% endmacro%}
+
+
+{% macro navbar() %}
+<nav id="primary-top-nav" class="navbar navbar-expand-lg navbar-light bg-light fixed-top" role="navigation">
+	<h2 class="menu-toggle sr-only screen-reader-text">Primary Menu</h2>
+	<div class="skip-link"><a class="screen-reader-text sr-only" href="#content">Skip to content</a></div>
+
+	<div class="container">
+		<a class="navbar-brand" href="/" rel="home">
+			<img src="" width="139" alt="RMG">
+		</a>
+		<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle topbar navigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+
+
+		<div class="collapse navbar-collapse" id="navbarContent">
+			<ul class="navbar-nav mr-auto">
+
+				<li id="template-menu-item" class="nav-item dropdown ">
+					<a class="nav-link dropdown-toggle" href="#" id="templatesTopNav" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">Home</a>
+					
+				</li>
+
+				<li id="mines-list" class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="mines" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mines</a>
+					<div id="what-dropdown" class="dropdown-menu" aria-labelledby="mines">
+						<div class="row">
+							<div class="col-12 col-md-6 mines-wrapper">
+								
+								<span class="what headline">Annual</span>
+									<a class="what dropdown-item " href="/lump_recovery/">Lump Recovery</a>
+									<a class="what dropdown-item " href="/mines_data/">Mines Annual Production & Despatch</a>
+									<a class="what dropdown-item" href="/yrly_cust_wise_supply/">Yearly Mines Despatch Customer wise</a>
+									<a class="what dropdown-item" href="/yrly_cust_mines_supply/">Yearly Plant Supply Mines wise</a>
+							
+
+							</div>
+							<div class="col-12 col-md-6">
+								
+								<span class="what headline">Annual</span>
+									<a class="what dropdown-item " href="/lump_recovery/">Lump Recovery</a>
+									<a class="what dropdown-item " href="/mines_data/">Mines Annual Production & Despatch</a>
+									<a class="what dropdown-item" href="/yrly_cust_wise_supply/">Yearly Mines Despatch Customer wise</a>
+									<a class="what dropdown-item" href="/yrly_cust_mines_supply/">Yearly Plant Supply Mines wise</a>
+							
+
+							</div>
+
+
+
+							
+						</div>
+					</div>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="https://app.kickofflabs.com/pricing">Pricing</a>
+				</li>
+
+				<li id="mines-list" class="nav-item dropdown ">
+					<a class="nav-link dropdown-toggle" href="#" id="resourcesTopNav" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Resources</a>
+					<div id="resources-dropdown" class="dropdown-menu" aria-labelledby="resourcesTopNav">
+						<div class="row">
+							<a class="resource dropdown-item col-12 col-md-4" href="https://support.kickofflabs.com/">
+								<span class="headline">Support &amp; Documentation</span>
+								<span class="subtitle">Find helpful documentation for the ins and outs of creating a viral campaign.</span>
+							</a>
+              <a class="resource dropdown-item col-12 col-md-4 " href="/podcast/">
+								<span class="headline">On Growth Podcast</span>
+								<span class="subtitle">Grow with us by learning from our stories and customer interviews.</span>
+							</a>
+              <a class="resource dropdown-item col-12 col-md-4 " href="/blog/">
+								<span class="headline">Blog</span>
+								<span class="subtitle">Insights for marketing your campaign like a pro.</span>
+							</a>
+
+
+						</div>
+						<div class="row">
+              
+							<a class="resource dropdown-item col-12 col-md-4 " href="/giveaway-resources/">
+								<span class="headline">Giveaway Resources</span>
+								<span class="subtitle">Useful downloads, guides, and best practices.</span>
+							</a>
+              <a class="resource dropdown-item col-12 col-md-4 " href="/showcase/">
+                <span class="headline">Customer Showcase</span>
+                <span class="subtitle">See how other companies like you ran great campaigns.</span>
+              </a>
+						</div>
+					</div>
+				</li>
+			</ul>
+
+			<div class="form-inline">
+				<a href="https://app.kickofflabs.com/login" class="btn btn-link login">Log In</a>
+				<a class="btn btn-pink btn-free signup" href="https://app.kickofflabs.com/signup/free" data-toggle="modal" data-target="#signup-free">Start Free!</a>
+			</div>
+		</div>
+	</div>
+</nav>
+
 {% endmacro %}

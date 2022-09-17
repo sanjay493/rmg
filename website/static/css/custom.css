@@ -10,11 +10,7 @@
 box-shadow: -45px 17px 42px 10px rgba(62,66,66,0.13);
 }
 
-.your-growing-text{
-    
-text-shadow: rgba(255,162,0,0.77) 0px 0px 73px;
 
-}
 
 #myChart {  /* or some other selector */
     width: 100% !important;
@@ -47,8 +43,8 @@ text-orientation: mixed;
     font-weight: 300;
     font-family: 'Work Sans',sans-serif !important;
 }
-.ff_class{
-    color: purple;
+.ondate{
+    background-color:var(--bs-pink);
     font-size: 1.1rem;
 }
 .foot-ma {
@@ -59,3 +55,38 @@ text-orientation: mixed;
 li{
     list-style: none;
 }
+.mycard{
+   
+        transform: translateY(-20px);
+        box-shadow: 0 0 20px 0 rgba(0,0,0,0.3);
+    
+}
+
+.footer{
+    position: sticky;
+    bottom: 0px;
+    font-size: small;
+    
+}
+.navbar-brand{
+    font-family: 'Ms Madi', cursive;
+    font-style: initial;
+    color:#fff !important;
+}
+.error-class{
+    display: inline-block;
+}
+.nav-link{
+    color: #fff !important;
+}
+.navbar {
+    padding: .75rem 0;
+    background-color: var(--bs-pink);
+    opacity: 0.9;
+    z-index: 2;
+  }
+  .custom-white{
+    
+  color:var(--bs-pink) !important;
+  }
+  

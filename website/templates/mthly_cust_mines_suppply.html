@@ -1,0 +1,148 @@
+{% extends "base.html" %} {% block title %}Plant's Monthly Supply Mines wise Share{%
+    endblock %} {% block content %}
+    
+    <h3 align="center">Plant's Monthly Supply Mines wise %share</h3>
+    
+    <!-- Example single danger button -->
+    <div>Select a Plant to get Monthly Mines wise Despatch</div>
+    
+    <div class="container">
+      <form
+        class="row gy-2 gx-3 align-items-center"
+        action="{{ url_for('views.mthly_cust_mines_suppply') }}"
+        method="POST"
+      >
+        <div class="col-auto">
+          <label class="visually-hidden" for="autoSizingSelect">Select Plant</label>
+          <select class="form-select" id="autoSizingSelect" name="cust">
+            <option selected>Choose...</option>
+            <option value="SAIL">SAIL</option>
+            <option value="BSL">BSL</option>
+            <option value="DSP">DSP</option>
+            <option value="RSP">RSP</option>
+            <option value="ISP">ISP</option>
+            <option value="BSP">BSP</option>
+            
+          </select>
+        </div>
+        <div class="col-auto">
+          <label class="visually-hidden" for="autoSizingSelect"
+            >Select commodity</label
+          >
+          <select class="form-select" id="autoSizingSelect" name="comm1">
+            <option selected>Choose...</option>
+            <option value="L">Lump</option>
+            <option value="F">Fines</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <input
+            type="text"
+            class="form-control"
+            id="yymm1"
+            placeholder="From month in YYYYMM format"
+            name="yymm1"
+          />
+        </div>
+        <div class="col-auto">
+          <input
+            type="text"
+            class="form-control"
+            id="yymm2"
+            placeholder="To month in YYYYMM format"
+            name="yymm2"
+          />
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+    
+    <div class="container">
+      {%- set U_Name = [{ 'name' : 'Kiriburu Iron Ore Mines', 'id' : 'KRB', }, {
+      'name' : 'Meghahatuburu Iron Ore Mines', 'id' : 'MBR', },{ 'name' : 'Gua Iron
+      Ore Mines', 'id' : 'GUA', },{ 'name' : 'Manoharpur Iron Ore Mines', 'id' :
+      'MPR', },{ 'name' : 'Bolani Ore Mines', 'id' : 'BOL', },{ 'name' : 'Barsua
+      Iron Mines', 'id' : 'BAR', },{ 'name' : 'Taldih Iron Mines', 'id' : 'TAL', },
+      { 'name' : 'Kalta Iron Mines', 'id' : 'KAL', }, { 'name' : 'Bhilai Group of
+      Mines', 'id' : 'BGM', },{ 'name' : 'Bhilai Steel Plant', 'id' : 'BSP', },{
+      'name' : 'Bokaro Steel Plant', 'id' : 'BSL', },{ 'name' : 'Rourkela Steel
+      Plant', 'id' : 'RSP', },{ 'name' : 'Durgapur Steel Plant', 'id' : 'DSP'},{
+      'name' : 'IISCO Steel Plant', 'id' : 'ISP'},{ 'name' : 'Jharkhand Group of
+      Mines', 'id' : 'JGOM'},{ 'name' : 'SAIL', 'id' : 'SAIL'},{ 'name' : 'Odisha
+      Group of Mines', 'id' : 'OGOM'} ] %}
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th colspan="8" class="align-middle text-end">
+                {% for item in U_Name %}{% if item.id==cust %}{{ item.name }} {%
+                endif %}{% endfor %}
+              </th>
+            </tr>
+        </tr>
+        <tr class="bg-primary">
+          <th class="align-middle text-center">Month</th>
+          <th class="align-middle text-center">Total Supply</th>
+          <th class="align-middle text-center">Bolani</th>
+          <th class="align-middle text-center">Barsua</th>
+          <th class="align-middle text-center">Taldih</th>
+          <th class="align-middle text-center">Kalta</th>
+          <th class="align-middle text-center">Kiriburu</th>
+          <th class="align-middle text-center">Meghahatuburu</th>
+          <th class="align-middle text-center">Gua</th>
+          <th class="align-middle text-center">Chiria</th>
+          <th class="align-middle text-center">Bhilai Mines</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for data in data %}
+        <tr>
+          <td class="text-center">{{ data[0] }}</td>
+          <td class="text-center">{{ data[1] }}</td>
+          <td class="text-center">
+            {{ data[2] }}
+            <p>{{ data[3] }}</p>
+          </td>
+          <td class="text-center">
+            {{ data[4] }}
+            <p>{{ data[5] }}</p>
+          </td>
+          <td class="text-center">
+            {{ data[6] }}
+            <p>{{ data[7] }}</p>
+          </td>
+          <td class="text-center">
+            {{ data[8] }}
+            <p>{{ data[9] }}</p>
+          </td>
+          <td class="text-center">
+            {{ data[10] }}
+            <p>{{ data[11] }}</p>
+          </td>
+          <td class="text-center">
+            {{ data[12] }}
+            <p>{{ data[13] }}</p>
+          </td>
+          <td class="text-center">
+            {{ data[14] }}
+            <p>{{ data[15] }}</p>
+          </td>
+          <td class="text-center">
+            {{ data[16] }}
+            <p>{{ data[17] }}</p>
+          </td>
+          <td class="text-center">
+            {{ data[18] }}
+            <p>{{ data[19] }}</p>
+          </td>
+        </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    {% endblock %}
+    

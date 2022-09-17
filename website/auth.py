@@ -12,6 +12,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField
 from wtforms import SubmitField
 from werkzeug.security import safe_join
+from .myforms import DlyProduction, LoginForm, SignupForm
 
 
 class MyForm(FlaskForm):
@@ -24,24 +25,24 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    # data = request.form
-    # print(data)
+    form = LoginForm()
     if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
+        if form.validate_on_submit():
+            email = request.form.get('email')
+            password = request.form.get('password')
 
-        user = User.query.filter_by(email=email).first()
-        if user:
-            if check_password_hash(user.password, password):
-                flash('Logged in successfully !', category='success')
-                login_user(user, remember=True)
-                return redirect(url_for('auth.admin'))
+            user = User.query.filter_by(email=email).first()
+            if user:
+                if check_password_hash(user.password, password):
+                    flash('Logged in successfully !', category='success')
+                    login_user(user, remember=True)
+                    return redirect(url_for('auth.admin'))
+                else:
+                    flash('Incorrecr password, try again !', category='error')
             else:
-                flash('Incorrecr password, try again !', category='error')
-        else:
-            flash('Email does not exist', category='error')
+                flash('Email does not exist', category='error')
 
-    return render_template("login.html", user=current_user)
+    return render_template("login.html", form=form, user=current_user)
 
 
 @auth.route('/logout')
@@ -57,41 +58,68 @@ def admin():
     return render_template('admin.html', user=current_user)
 
 
+# @auth.route('/signup', methods=['GET', 'POST'])
+# def signup():
+#     if request.method == 'POST':
+#         email = request.form.get('email')
+#         fname = request.form.get('fname')
+#         password = request.form.get('password')
+#         password1 = request.form.get('password1')
+
+#         user = User.query.filter_by(email=email).first()
+#         if user:
+#             flash('Email already exists', category='error')
+
+#         elif len(email) < 4:
+#             flash('Email must be greater than 4 charecters. ', category='error')
+#         elif len(fname) < 2:
+#             flash('First name must be greater than 2 charecters. ', category='error')
+
+#         elif password != password1:
+#             flash('Password must be equal. ', category='error')
+
+#         elif len(password) < 6:
+#             flash('Password must be greater than 6 charecters. ', category='error')
+
+#         else:
+#             # add user to database
+#             new_user = User(email=email, fname=fname, password=generate_password_hash(
+#                 password, method='sha256'))
+#             db.session.add(new_user)
+#             db.session.commit()
+#             # login_user(user, remember=True)
+
+#             flash('Account created !. ', category='success')
+#             return redirect(url_for('auth.login'))
+
+#     return render_template("signup.html", user=current_user)
+
+
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
+    form = SignupForm()
     if request.method == 'POST':
-        email = request.form.get('email')
-        fname = request.form.get('fname')
-        password = request.form.get('password')
-        password1 = request.form.get('password1')
+        if form.validate_on_submit():
+            email = request.form.get('email')
+            firstname = request.form.get('firstname')
+            password = request.form.get('password')
+            password1 = request.form.get('password1')
 
-        user = User.query.filter_by(email=email).first()
-        if user:
-            flash('Email already exists', category='error')
+            user = User.query.filter_by(email=email).first()
+            if user:
+                flash('Email already exists', category='error')
+            else:
+                # add user to database
+                new_user = User(email=email, fname=firstname, password=generate_password_hash(
+                    password, method='sha256'))
+                db.session.add(new_user)
+                db.session.commit()
+                # login_user(user, remember=True)
 
-        elif len(email) < 4:
-            flash('Email must be greater than 4 charecters. ', category='error')
-        elif len(fname) < 2:
-            flash('First name must be greater than 2 charecters. ', category='error')
+                flash('Account created !. ', category='success')
+                return redirect(url_for('auth.login'))
 
-        elif password != password1:
-            flash('Password must be equal. ', category='error')
-
-        elif len(password) < 6:
-            flash('Password must be greater than 6 charecters. ', category='error')
-
-        else:
-            # add user to database
-            new_user = User(email=email, fname=fname, password=generate_password_hash(
-                password, method='sha256'))
-            db.session.add(new_user)
-            db.session.commit()
-            # login_user(user, remember=True)
-
-            flash('Account created !. ', category='success')
-            return redirect(url_for('auth.login'))
-
-    return render_template("signup.html", user=current_user)
+    return render_template("signup.html", form=form, user=current_user)
 
 
 # @auth.route('/rakedetails', methods=['GET', 'POST'])

@@ -1,48 +1,22 @@
 {% extends "base.html" %} {% block title %}Sign-up{% endblock %} {% block
-content %}
+content %}{% from "_render_templates.html" import render_signup_form_field %}
 <main class="form-signup w-100 m-auto">
-  <form method="POST">
+  <form method="POST" action="{{ url_for('auth.signup') }}" novalidate>
     <h3 align="center">Sign up</h3>
     <div class="form-group">
-      <label for="email">Email Address</label>
-      <input
-        type="email"
-        class="form-control"
-        id="email"
-        name="email"
-        placeholder="Enter email"
-      />
+      {{ form.csrf_token }}
+      <div class="col-lg-8 p-1">{{ render_signup_form_field(form.email )}}</div>
+      <div class="col-lg-8 p-1">
+        {{ render_signup_form_field(form.firstname )}}
+      </div>
+      <div class="col-lg-8 p-1">
+        {{ render_signup_form_field(form.password )}}
+      </div>
+      <div class="col-lg-8 p-1">
+        {{ render_signup_form_field(form.password1 )}}
+      </div>
     </div>
-    <div class="form-group">
-      <label for="fname">First Name</label>
-      <input
-        type="text"
-        class="form-control"
-        id="fname"
-        name="fname"
-        placeholder="Enter First Name"
-      />
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input
-        type="password"
-        class="form-control"
-        id="password"
-        name="password"
-        placeholder="Enter password"
-      />
-    </div>
-    <div class="form-group">
-      <label for="password1">Password(confirm)</label>
-      <input
-        type="password"
-        class="form-control"
-        id="password1"
-        name="password1"
-        placeholder="Enter Password again"
-      />
-    </div>
+    <ul></ul>
     <br />
     <button type="submit" class="w-100 btn btn-lg btn-primary">Sign Up</button>
   </form>

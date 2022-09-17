@@ -1,0 +1,94 @@
+{% extends "base.html" %} {% block title %}Mines Performance{% endblock %} {%
+block content %}
+
+<h3 align="center">Mines Production Performance</h3>
+
+<!-- Example single danger button -->
+<div>
+  <p>
+    For Production Performace for any duration April'20 (202004) onward, Please
+    enter starting month and ending Month (in YYYYMM format). Starting and
+    ending month shall be same for a month performance.
+  </p>
+</div>
+
+<div class="container">
+  <form
+    class="row gy-2 gx-3 align-items-center"
+    action="{{ url_for('views.mines_performance') }}"
+    method="POST"
+  >
+    <div class="col-auto">
+      <input
+        type="text"
+        class="form-control"
+        id="yymm1"
+        placeholder="From month in YYYYMM format"
+        name="yymm1"
+      />
+    </div>
+    <div class="col-auto">
+      <input
+        type="text"
+        class="form-control"
+        id="yymm2"
+        placeholder="To month in YYYYMM format"
+        name="yymm2"
+      />
+    </div>
+    <div class="col-auto">
+      <label class="visually-hidden" for="autoSizingSelect"
+        >Select commodity</label
+      >
+      <select class="form-select" id="autoSizingSelect" name="comm1">
+        <option selected>Choose...</option>
+        <option value="L">Lump</option>
+        <option value="F">Fines</option>
+        <option value="T">Total</option>
+      </select>
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+
+<div class="container">
+  <h4>
+    Mines wise I/Ore {{comm1}} Production Performance from {{yymm1}} to
+    {{yymm2}}
+  </h4>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr class="bg-primary">
+          <th class="align-middle text-center">Unit/Group</th>
+          <th class="align-middle text-center">APP</th>
+          <th class="align-middle text-center">COD</th>
+          <th class="align-middle text-center">Actual</th>
+          <th class="align-middle text-center">%FF wrt COD</th>
+          <th class="align-middle text-center">%FF wrt APP</th>
+          <th class="align-middle text-center">CPLY</th>
+          <th class="align-middle text-center">Growth%</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for data in data %}
+        <tr>
+          <td class="align-middle text-center">{{data[0]}}</td>
+          <td class="align-middle text-center">{{data[1]}}</td>
+          <td class="align-middle text-center">{{data[2]}}</td>
+          <td class="align-middle text-center">{{data[3]}}</td>
+          <td class="align-middle text-center">{{data[4]}}</td>
+          <td class="align-middle text-center">{{data[5]}}</td>
+
+          <td class="align-middle text-center">{{data[6]}}</td>
+          <td class="align-middle text-center">{{data[7]}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

@@ -6,13 +6,18 @@ from flask_wtf import FlaskForm
 from flask_login import LoginManager
 from os import path
 import os
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import login_user, login_required, logout_user, current_user
 from dotenv import load_dotenv
 load_dotenv()
 
 
 db = SQLAlchemy()
+
+
+def page_not_found(e):
+    return render_template('404.html', user=current_user), 404
 
 
 def create_app():
@@ -37,6 +42,8 @@ def create_app():
 
     from .models import User
     # create_database(app)
+
+    app.register_error_handler(404, page_not_found)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'

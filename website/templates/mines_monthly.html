@@ -77,25 +77,23 @@ content %}
       <tbody>
         {% for data in data %}
         <tr>
-          <td class="text-center">{{ data.periods }}</td>
-          <td class="text-center">{{ "{:,.0f}".format(data.total_pl) }}</td>
-          <td class="text-center">{{ "{:,.0f}".format(data.total_pf)}}</td>
+          <td class="text-center">{{ data[1] }}</td>
+          <td class="text-center">{{ "{:,.0f}".format(data[3] |int) }}</td>
+          <td class="text-center">{{ "{:,.0f}".format(data[5]|int)}}</td>
           <td class="text-center bg-primary text-white">
-            {{ "{:,.0f}".format((data.total_pl+data.total_pf)) }}
+            {{ "{:,.0f}".format((data[3]|int)+(data[5]|int)) }}
           </td>
           <td class="text-center bg-primary text-white">
-            {{
-            ((data.total_pl+data.total_pf)*100/(data.total_plp+data.total_pfp))
+            {{ ((data[3]|int+data[5] |int)*100/(data[2]|int+data[4]|int))
             |round|int }}
           </td>
-          <td class="text-center">{{ "{:,.0f}".format(data.total_dl) }}</td>
-          <td class="text-center">{{ "{:,.0f}".format(data.total_df)}}</td>
+          <td class="text-center">{{ "{:,.0f}".format(data[7] | int) }}</td>
+          <td class="text-center">{{ "{:,.0f}".format(data[9]|int)}}</td>
           <td class="text-center bg-danger text-white">
-            {{ "{:,.0f}".format((data.total_dl+data.total_df)) }}
+            {{ "{:,.0f}".format((data[7]|int+data[9]|int)|int) }}
           </td>
           <td class="text-center bg-danger text-white">
-            {{
-            ((data.total_dl+data.total_df)*100/(data.total_dlp+data.total_dfp))
+            {{ ((data[7]|int+data[9]|int)*100/(data[6]|int+data[8]|int))
             |round|int }}
           </td>
         </tr>

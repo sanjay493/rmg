@@ -1,43 +1,6 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
 %}
-<!-- {% if user.pr_dly %}
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <h1 align="center">Production Report</h1>
-    </tr>
-    <tr>
-      <th scope="col">Report date</th>
-      <th scope="col">Unit</th>
-      <th scope="col">ROM</th>
-      <th scope="col">OB</th>
-      <th scope="col">Lump</th>
-      <th scope="col">Fines</th>
-      <th scope="col">Drilling</th>
-      <th scope="col">Entry time</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      {% for data in user.pr_dly %}
-      {% if data.entry_time%}
-      <td>{{ data.rpt_date }}</td>
-      <td>{{ data.unit }}</td>
-      {% if data.comm=='RM' %}
-      <td>{{ data.act_qty }}</td>
-      {% elif data.comm=='OB' %}
-      <td>{{ data.act_qty }}</td>
-      {% elif data.comm=='L' %}
-      <td>{{ data.act_qty }}</td>
-      {% elif data.comm=='F' %}
-      <td>{{ data.act_qty }}</td>
-      {% elif data.comm=='DR' %}
-      <td>{{ data.act_qty }}</td>
-      {% endif %} {% endfor %}
-    </tr>
-  </tbody>
-</table>
-{% endif %} -->
+
 <main class="form-rake w-100 m-auto">
   <form method="POST">
     <div class="container">
